@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<string.h>
+double change(char bf[]);
+int main()
+{
+
+char a[100]={'\0'};//定义一个字符数组，保存四则运算表达式double_b[50]={0};//定义一个整数数组，操作数保存到int型数组b
+double b[50]={0};
+char c[50]={'\0'};//定义一个字符数组，运算符保存到char型数组c
+int i=0,j=0,k=0,t,w,e=1;
+double result=0;
+char bf[50];
+printf("请输入你要的四则运算表达式：");
+gets(a);
+i=0;
+while(a[i]!='\0')
+{
+
+if(a[i]>='0' && a[i]<='9')
+{
+
+t=0;
+while(a[i]>='0'&&a[i]<='9')
+{
+
+bf[t]=a[i];
+t++;
+i++;
+}
+bf[t]='\0';
+b[j]=change(bf);
+}
+if(a[i]=='.')
+{
+
+i=i+1;
+t=0;
+while(a[i]>='0'&&a[i]<='9')
+{
+bf[t]=a[i];
+t++;
+i++;
+}
+bf[t]='\0';
+w=strlen(bf);
+e=1;
+while(w>0)
+{
+e=e*10;
+w--;
+}
+b[j]=b[j]+change(bf)/e;
+}
+j++;
+if(a[i]=='+'||a[i]=='-'||a[i]=='*'||a[i]=='/')
+{
+c[k]=a[i];
+k++;
+}
+i=i+1;
+}
+c[k]='\0';
+i=0;
+result=b[0];
+while(c[i] !='\0')
+{
+
+switch(c[i])
+{
+
+case '+':
+result=result+b[i+1];
+break;
+case '-':
+
+result =result *b[i+1];
+break;
+case '/':
+
+result =result/b[i+1];
+break;
+}
+i++;
+}
+
+
+printf("%s=%f\n",a,result);
+
+return 0;
+}
+
+double change(char bf[])
+{
+
+int i=0;
+double num=0.0;
+while(bf[i]!='\0')
+{
+
+num=num*10+(bf[i]-'0');
+i++;
+}
+return num;
+}
+
